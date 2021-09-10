@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
+</head>
+<body>
+
+    <p>Hello from Books app</p>
+    <a href="{% url 'create-book' %}">Add new book</a>
+    <form method="POST" action="{% url 'bulk-delete-books' %}">
+        {% csrf_token %}
+    <table>
+        <tr>
+          <th>id</th>
+          <th>Delete checkbox</th>
+          <th>Book name</th>
+          <th>book description</th>
+          <th>Price</th>
+           <th>Photo</th>
+           <th>Home page view</th>
+          <th>Actions</th>
+        </tr>
+        {% for book in all_books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td> <input type="checkbox" name="selected_option[]"  value="{{book.pk}}"></td>
+            <td> <a href="{% url 'edit-book' book.id %}"> {{ book.name }} </a> </td>
+            <td>{{ book.description }}</td>
+            <td>{{ book.price }} $</td>
+            {% if book.photo %}
+                <td>
+                    <img src="{{ book.photo.url }}" alt="" width="100" height="100">
+                </td>
+                {% else %}
+                 <td>
+                    <img src="{% static 'images\p2.png' %}" alt=""  width="100" height="100" >
+                </td>
+            {% endif %}
+            <td>{{ book.is_home }} </td>
+            <td> <a href="{% url 'delete-book' book.id %}">Delete</a> </td>
+        </tr>
+        {% endfor %}
+
+      </table>
+
+        <button type="submit"> Bulk Delete Books </button>
+    </form>
+
+
+</body>
+</html>

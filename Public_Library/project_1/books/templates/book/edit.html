@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book</title>
+</head>
+<body>
+    <p>Edit Book Form</p>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'save-edit-book' book_data.id %}">
+        {% csrf_token %}
+        Book name: <input type="text" name="book_name" value="{{book_data.name}}"> <br><br>
+        Book description: <input type="text" name="book_desc" value="{{book_data.description}}"> <br><br>
+        Book Price: <input type="number" name="book_price" value="{{book_data.price}}"> <br><br>
+        {% if book_data.is_home %}
+        <input type="checkbox" name="is_home_visible" value="home" checked>
+        {% else %}
+        <input type="checkbox" name="is_home_visible" value="home" >
+        {% endif %}
+        <label >Home Display</label> <br><br>
+
+        {% if book_data.photo %}
+            <img src="{{ book_data.photo.url }}", alt="Image here" width="100" height="100">
+        {% endif %}
+<!--        <label class="form-label">Image</label><br>-->
+        <br><br>
+         <input type="file" name="mynewfile", class="form-control"><br><br>
+        <button type="submit" class="btn btn-primary"> Edit Book </button>
+    </form>
+</body>
+</html>
