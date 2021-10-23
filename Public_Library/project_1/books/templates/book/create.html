@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Book</title>
+</head>
+<body>
+    <p>Create Book Form</p>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'save-book' %}">
+        {% csrf_token %}
+        Book name: <input type="text" name="book_name"> <br><br>
+        Book description: <input type="text" name="book_desc"> <br><br>
+        Book Price: <input type="number" name="book_price"> <br><br>
+        <input type="checkbox" name="is_home_visible" value="home">
+        <label >Home Display</label> <br><br>
+        Book Image: <input type="file" name="myfile"><br><br>
+        <button type="submit" class="btn btn-primary"> Add Book </button>
+    </form>
+</body>
+</html>
